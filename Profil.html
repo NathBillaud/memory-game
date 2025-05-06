@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Jeu de Memory</h1>
+    
+    <nav class="menu">
+        <ul>
+    
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="Inscrire.html">S'inscrire</a></li>
+            <li><a href="SeConnecter.html">Se connecter</a></li>
+            <li><a href="Profil.html">Profil</a></li>
+            <li><a href="jouer.html">Jouer</a></li>
+        </ul>
+    </nav>
+<form action="">
+    <section>
+        <h2>Profil</h2>
+    <img src="image/question.svg"  alt="img" height="50" width="50"><br><br>
+        <label>Nom d'utlisateur<br>
+            <input type="text" placeholder="3 caractères minimum" id="username" /></label><br><br>
+        <label>Entrez votre email: <br>
+            <input type="email" placeholder="votre email: exemple john@doe.fr" id="email" required/></label><br><br>
+        <label>Mot de passe: <br><br>
+
+
+    <label for="themes">Choix du memory:</label>
+    <select name="cars" id="cars">
+        <option value="animaux">Animaux</option>
+        <option value="chiens">Chiens</option>
+        <option value="dinosaures">Dinosaures</option>
+        <option value="alphabet">Alphabet</option>
+    </select><br><br>
+<label for="taille">Taille du Memory:</label>
+<select name="taille" id="taille">
+    <option value="debutant">4*3</option>
+    <option value="intermediaire">5*4</option>
+    <option value="expert">6*5</option>
+</select>
+</form>
+
+    <br><br>
+    <input type="submit" value="Enregistrez l'option">
+
+
+
+
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>

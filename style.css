@@ -1,0 +1,123 @@
+body {
+    background-color: rgb(136, 238, 89);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h1,
+h2 {
+    text-align: center;
+    color: #2c3e50;
+}
+
+nav {
+    background-color: aqua;
+    font-size: 1.5em;
+    padding: 0.5em 0;
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-evenly;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav a {
+    color: #2c3e50;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+nav a:hover {
+    color: #e74c3c;
+}
+
+#gameBoard {
+    display: grid;
+    gap: 10px;
+    margin: 20px auto;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, 100px);
+}
+ol li{
+    list-style: none;
+}
+
+.card {
+    background-color: #007BFF;
+    color: white;
+    font-size: 2rem;
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    cursor: pointer;
+
+    border-radius: 8px;
+    user-select: none;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.card img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    pointer-events: none; 
+  }
+
+.card:hover {
+    transform: scale(1.03);
+}
+
+.card.flipped {
+    background-color: #28a745;
+    cursor: default;
+    transform: rotateY(180deg);
+}
+
+.card.matched {
+    background-color: #eb2c2c; 
+    cursor: default;           
+    transform: rotateY(180deg);
+}    
+
+section {
+    text-align: center;
+    border: 1px solid rgb(180, 155, 180);
+    padding: 20px;
+    background-color: rgb(226, 220, 212);
+    border-radius: 20px;
+    box-shadow: 8px 8px 8px #181414;
+    max-width: 900px;
+    margin: 20px auto;
+}
+#InscrireFormulaire{
+    background-color: #82aef0;
+    gap: 10px;
+    margin: 20px auto;
+    justify-content: center;
+    
+}
+
+input:invalid{
+    /* background-image: url(image/error.svg);
+    background-position: right;
+    background-repeat: no-repeat; */
+    border : solid red;
+}
+
+input:valid{
+    /* background-image: url(image/check.svg);
+    background-position: right;
+    background-repeat: no-repeat; */
+    border: #28a745 solid;
+}
+
+table, th, td{
+    border:  1px solid black;
+    border-collapse: collapse;
+}
