@@ -24,34 +24,41 @@ h1>Jeu de Memory</h1>
 <form action=""></form>
     <section>
         <H2>Derniers meilleurs scores : </H2>
-        <table id="LastBestScore">
-            <tr>
-                
-                <th>Pseudo</th>
-                <th>Score</th>
-                <th>Taille</th>
-                <th>Choix Memory</th>
-                <th>Date</th>
-            </tr>
-            <tr>
-                <td>
+      
+      
+            <div class="container">
+        <div classe="header"> Pseudo Score Taille Choix Memory Date</div>
+        <div classe="lastBestScore"></div>
+        <div classe="secondBestScore"></div>
 
-                </td>
-            </tr>
-            <tr>
+       </div>
             
-                <td>
-
-                </td>
-            </tr>
-        </table>
 
         <H3>Tentez de gagner avec le moins d'essais possible. <br> 
             Appuyez sur la barre d'espace pour relancer le jeu. <br> 
             Nombre de coups : </H3>
 
-            <div id="gameBoard" class="game-board"></div>
+                <div id="gameBoard" class="game-board"></div>
+                <form id="form">
 
+             <label for="theme">Choisissez un thème :</label>
+                 <select id="theme" required>
+                <option value="animaux">Animaux</option>
+                <option value="chiens">Chiens</option>
+                <option value="dinosaures">Dinosaures</option>
+                <option value="alphabet">Alphabet</option>
+             </select><br><br>
+
+            <label for="boardSize">Nombre de cartes :</label>
+                <select id="boardSize" required>
+                <option value="12">12 (6 paires)</option>
+                <option value="16">16 (8 paires)</option>
+                <option value="20">20 (10 paires)</option>
+            </select><br><br>
+            
+            <button id="startGameBtn" type="button">Commencer la partie</button>
+    
+        </form> 
 
 
     </section>

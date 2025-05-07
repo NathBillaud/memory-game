@@ -103,21 +103,22 @@ section {
     
 }
 
-input:invalid{
-    /* background-image: url(image/error.svg);
+/* input:invalid{
+    background-image: url(image/error.svg);
     background-position: right;
-    background-repeat: no-repeat; */
+    background-repeat: no-repeat;
     border : solid red;
 }
 
 input:valid{
-    /* background-image: url(image/check.svg);
+    background-image: url(image/check.svg);
     background-position: right;
-    background-repeat: no-repeat; */
+    background-repeat: no-repeat;
     border: #28a745 solid;
-}
+} */
 
-table, th, td{
-    border:  1px solid black;
+/* .container{
+    overflow-wrap: ;
     border-collapse: collapse;
-}
+    border: 1px solid black;
+} */

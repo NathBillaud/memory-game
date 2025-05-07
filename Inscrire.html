@@ -21,9 +21,11 @@
     </nav>
 
     <section id="InscrireFormulaire">
+        
         <h2>Inscrivez-vous</h2>
 
-     <form action="">
+     <form id="form">
+        <div id="erreurMessages"></div>
             <label>Nom d'utlisateur<br>
                 <input type="text" placeholder="3 caractères minimum" required minlength="3" maxlength="64" id="username" /></label><br><br>
             <label>Entrez votre email: <br>
@@ -31,13 +33,13 @@
             <label>Mot de passe: <br>
                 <input type="password" placeholder="votre mot de passe" id="password" /></label><br><br>
             <label>Confirmez le mot de passe: <br>
-                <input type="password" placeholder="Confirmez le mot de passe" id="password" /></label><br><br>
+                <input type="password" placeholder="Confirmez le mot de passe" id="confirmPassword" /></label><br><br>
                 
            
            
            
                 <input type="submit" value="Création du compte">
-            <input type="submit" value="Annuler"><br><br>
+            <input type="reset" value="Annuler"><br><br>
 
 
     </form>

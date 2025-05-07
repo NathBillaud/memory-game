@@ -25,7 +25,7 @@
         </ul>
     </nav>
 
-    <button id="startGameBtn" type="button">Commencer la partie</button>
+    
 
     <section>
         <h3>
@@ -40,7 +40,26 @@
             <li>La partie est terminée lorsque toutes les cartes ont été assemblées par paires.</li>
         </ol>
                 <div id="gameBoard" class="game-board"></div>
-    
+                <form id="form">
+                
+                    <label for="theme">Choisissez un thème :</label>
+                    <select id="theme">
+                      <option value="animaux">Animaux</option>
+                      <option value="chiens">Chiens</option>
+                      <option value="dinosaures">Dinosaures</option>
+                      <option value="alphabet">Alphabet</option>
+                    </select><br><br>
+                  
+                    <label for="boardSize">Nombre de cartes :</label>
+                    <select id="boardSize" required>
+                      <option value="12">12 (6 paires)</option>
+                      <option value="16">16 (8 paires)</option>
+                      <option value="20">20 (10 paires)</option>
+                    </select><br><br>
+                <button id="startGameBtn" type="button">Commencer la partie</button>
+                  
+                  </form>
+                    
         <h3>
             Si vous voulez vous souvenir de votre score, inscrivez-vous via le formulaire.<br />
             Le jeu garde les <strong>5 meilleurs scores.</strong><br />
@@ -48,8 +67,11 @@
         </h3>
 
         <h3>Dernières parties jouées</h3>
+        <div>
+            <h3>Score actuel : <span id="currentScore">0</span> pts</h3>
+          </div>
 
-            <div id="scores">
+            <div id="bestScores">
                 <h2>Meilleurs scores</h2>
                 <ul id="bestScoresList"></ul>
             </div>

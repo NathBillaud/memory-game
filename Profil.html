@@ -19,15 +19,20 @@
             <li><a href="jouer.html">Jouer</a></li>
         </ul>
     </nav>
-<form action="">
+<form id="form">
+    
     <section>
         <h2>Profil</h2>
     <img src="image/question.svg"  alt="img" height="50" width="50"><br><br>
-        <label>Nom d'utlisateur<br>
+        <div id="erreurMessages"> 
+         <label>Nom d'utlisateur<br>
             <input type="text" placeholder="3 caractères minimum" id="username" /></label><br><br>
         <label>Entrez votre email: <br>
             <input type="email" placeholder="votre email: exemple john@doe.fr" id="email" required/></label><br><br>
-        <label>Mot de passe: <br><br>
+        <label>Mot de passe:
+            <input type="password" placeholder="entrez votre mot de passe" id ="password" required> 
+            <br><br>
+            </div>
 
 
     <label for="themes">Choix du memory:</label>
