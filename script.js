@@ -205,17 +205,17 @@ import { evaluatePasswordStrength } from "./modules/password.js";
 const passwordInput = document.getElementById("password");
 const confirmPasswordInput = document.getElementById("confirmPassword");
 const strengthDiv = document.getElementById("passwordStrength");
-const strengthFill = document.getElementById("passwordStrengthFill");
+const strengthFill = document.getElementById("passwordStrengthFill"); // element visuel
+
 
 // Mise à jour de la force du mot de passe
-
 if (passwordInput && strengthDiv && strengthFill) {
   passwordInput.addEventListener("input", () => {
     const strength = evaluatePasswordStrength(passwordInput.value);
     strengthDiv.textContent = `Force du mot de passe : ${strength}`;
 
     let width = 0;
-    let color = "red";
+    let color = "white";
 
     if (strength === "fort") {
       width = 100;
@@ -227,7 +227,7 @@ if (passwordInput && strengthDiv && strengthFill) {
       width = 30;
       color = "red";
     }
-
+    // largeur en fonction du pourcentage, valeur de width
     strengthFill.style.width = `${width}%`;
     strengthFill.style.backgroundColor = color;
 
