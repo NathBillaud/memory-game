@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Profil</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -19,24 +19,24 @@
             <li><a href="jouer.html">Jouer</a></li>
         </ul>
     </nav>
-<form id="form">
-    
+<form id="profilForm">
+    <div id="erreurMessages"></div> 
     <section>
         <h2>Profil</h2>
     <img src="image/question.svg"  alt="img" height="50" width="50"><br><br>
-        <div id="erreurMessages"> 
+        
          <label>Nom d'utlisateur<br>
-            <input type="text" placeholder="3 caractères minimum" id="username" /></label><br><br>
+            <input type="text" placeholder="3 caractères minimum" id="username" required minlength="3" maxlength="64" /></label><br><br>
         <label>Entrez votre email: <br>
             <input type="email" placeholder="votre email: exemple john@doe.fr" id="email" required/></label><br><br>
         <label>Mot de passe:
-            <input type="password" placeholder="entrez votre mot de passe" id ="password" required> 
+            <input type="password" placeholder="entrez votre mot de passe" minlength="6" id ="password" required> 
             <br><br>
-            </div>
+            
 
 
     <label for="themes">Choix du memory:</label>
-    <select name="cars" id="cars">
+    <select name="theme" id="theme">
         <option value="animaux">Animaux</option>
         <option value="chiens">Chiens</option>
         <option value="dinosaures">Dinosaures</option>
@@ -48,10 +48,11 @@
     <option value="intermediaire">5*4</option>
     <option value="expert">6*5</option>
 </select>
+<input type="submit" value="Enregistrez l'option">
+
 </form>
 
     <br><br>
-    <input type="submit" value="Enregistrez l'option">
 
 
 

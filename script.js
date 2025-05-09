@@ -2,26 +2,28 @@
 import { validateEmail } from './modules/email.js';
 
 // Fonction pour le mot de passe
- // Au moins 6 caractères, une majuscule, une minuscule, un caractère spécial
+// Au moins 6 caractères, une majuscule, une minuscule, un caractère spécial
 import { validatePassword } from "./modules/password.js";
+import { saveToLocalStorage, saveGameScore, displayBestScores } from './modules/storage.js';
 
-
-// récupération pour afficher le plateau de jeu
+// Récupération pour afficher le plateau de jeu
 const gameBoard = document.getElementById('gameBoard');
 
-// affichage des variables, cartes retournées les paires et tableau
-let flippedCards = []; //cartes retournées
-let matchedPairs = 0; //nombre de paires trouvés
-let totalPairs = 0;//total PaireTrouvées
-let cards = [];//tableau de cartes
-let score = 0;//score
-let username = '';//nom du joueur
-let currentTheme = '';//thème choisi
+// Variables pour le jeu
+let flippedCards = []; // cartes retournées
+let matchedPairs = 0; // nombre de paires trouvées
+let totalPairs = 0; // total PaireTrouvées
+let cards = []; // tableau de cartes
+let score = 0; // score
+let currentTheme = ''; // thème choisi
 let nbCoups = 0;
 let startTime, endTime;
 
+// Récupérer les variables utilisateur
+const user = JSON.parse(localStorage.getItem('user'));
+const username = user?.username || 'Invité';
 
-// fonction mélange de manière aléatoire
+// Fonction de mélange aléatoire
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -39,7 +41,7 @@ function generateImagesArray(basePath, count) {
   return images;
 }
 
-//fonction pour créer les cartes, mélanger afficher dans le plateau de jeu
+// Fonction pour créer les cartes, mélanger, afficher dans le plateau de jeu
 function createBoard(theme, totalCards) {
   const pairsCount = totalCards / 2;
   const basePath = `image/${theme}`;
@@ -51,85 +53,86 @@ function createBoard(theme, totalCards) {
   nbCoups = 0;
   totalPairs = pairsCount;
 
-startTimer();
+  startTimer();
 
-// Duppliquer les cartes
-cards = [...selectedImages, ...selectedImages];
-cards = shuffle(cards);
+  // Dupliquer les cartes
+  cards = [...selectedImages, ...selectedImages];
+  cards = shuffle(cards);
 
+  // 4. Créer et ajouter chaque carte au DOM
+  cards.forEach((content, index) => {
+    const card = document.createElement('div'); // nouvelle carte
+    card.classList.add('card'); // donne class Css card
+    card.dataset.content = content; // Stockage de l'image pour content, ajout info carte
+    card.dataset.index = index; // stocke l'index ds tableau
+    card.textContent = ''; // carte face cachée
 
-// 4. Créer et ajouter chaque carte au DOM
-cards.forEach((content, index) => {
-  const card = document.createElement('div');//nouvelle carte
-  card.classList.add('card');//donne class Css card
-  card.dataset.content = content; //Stockage de l'image'
-  card.dataset.index = index; //stocke l'index
-  card.textContent = ''; // carte face cachée
+    // Quand on clique sur une carte
+    card.addEventListener('click', () => {
+      if (flippedCards.length < 2 && !card.classList.contains('flipped')) {
+        flipCard(card); // on la retrouve
+      }
+    });
 
-  //quand on clique sur une carte
-  card.addEventListener('click', () => {
-    if (flippedCards.length < 2 && !card.classList.contains('flipped')) {
-      flipCard(card);//on la retrouve
-    }
+    gameBoard.appendChild(card); // ajout de la carte au plateau, par script à un élément parent
   });
-
-  gameBoard.appendChild(card); //ajout de la carte au plateau, par script à un element parent
-});
 
   // Ajuster la grille CSS selon la taille
   gameBoard.style.gridTemplateColumns = `repeat(${Math.ceil(Math.sqrt(pairsCount))}, 1fr)`;
 }
 
-
-//Fonction tirage des cartes, clique affiche puis = ou !=
+// Fonction tirage des cartes, clic affiche puis = ou !=
 function flipCard(card) {
-  card.classList.add('flipped');//variable carte visible, en appelant class css flipped
-  card.innerHTML = `<img src="${card.dataset.content}">`;//affiche image
-  flippedCards.push(card);//ajout à liste cartes retournées
+  card.classList.add('flipped'); // carte visible, en appelant class css flipped
+  card.innerHTML = `<img src="${card.dataset.content}">`; // affiche image
+  flippedCards.push(card); // ajout à liste cartes retournées
 
   if (flippedCards.length === 2) {
-    nbCoups++; 
-    //  pour compter le score dc nbCoups
+    nbCoups++; // pour compter le score dc nbCoups
     // Vérifier si c'est une paire
     if (flippedCards[0].dataset.content === flippedCards[1].dataset.content) {
-      //Si c'est une paire, on ++
-      matchedPairs++;
-      flippedCards.forEach(c => c.classList.add('matched'));// c pour valeur temporaire ou carte reste retournée su rle plateau
+      matchedPairs++; // Si c'est une paire, on ++
+      flippedCards.forEach(c => c.classList.add('matched')); // carte reste retournée sur le plateau
       flippedCards = [];
       if (matchedPairs === totalPairs) {
-        endGame();//finir le jeu si toutes les paires trouvées
+        endGame(); // finir le jeu si toutes les paires trouvées
       }
     } else {
-      // Retourner les cartes après un court délai, 1s
+      // Retourner les cartes après un court délai (1s)
       setTimeout(() => {
         flippedCards.forEach(c => {
-          c.classList.remove('flipped'); //variable c carte appelant class css flipped
-          c.innerHTML = '';//carte cachée
+          c.classList.remove('flipped'); // carte appelant class css flipped
+          c.innerHTML = ''; // carte cachée
         });
         flippedCards = [];
       }, 1000);
     }
   }
 }
+console.log("currentTheme:", currentTheme);
+console.log("totalPairs:", totalPairs);
 
-//Fonction fin de jeu, message enregistrer le score et affichage
+// Fonction fin de jeu, message enregistrer le score et affichage
 function endGame() {
-  // arret du timer 
-  const duree = stopTimer(); 
+  const duree = stopTimer(); // arrête le timer
   score = calculerScore(nbCoups, totalPairs, duree);
-  
+  const user = JSON.parse(sessionStorage.getItem('user'));
+  const username = user ? user.username : 'Invité';
+
   alert('Félicitations ! Vous avez trouvé toutes les paires.');
-  saveScore(username, currentTheme, totalPairs, score);
+  saveGameScore({ user: username, theme: currentTheme, pairs: totalPairs, score });
   displayBestScores(currentTheme, totalPairs);
   document.getElementById('currentScore').textContent = score;
 }
 
-
 // Démarrer le jeu
- // theme et choix de la taille
 
- document.getElementById('startGameBtn').addEventListener('click', () => {
-  const theme = document.getElementById('theme').value;
+if (document.body.classList.contains('page-accueil') || document.body.classList.contains('page-jeu')) {
+  const startGameBtn = document.getElementById('startGameBtn');
+  
+  if (startGameBtn) {
+    startGameBtn.addEventListener('click', () => {  
+      const theme = document.getElementById('theme').value;
   const totalCards = parseInt(document.getElementById('boardSize').value, 10);
 
   if (!theme || isNaN(totalCards)) {
@@ -138,10 +141,17 @@ function endGame() {
   }
 
   currentTheme = theme;
+  totalPairs =totalCards/2;
+
+  console.log("Theme choisi: ", currentTheme);
+  console.log("Total Paires: ", totalPairs);
+
   createBoard(theme, totalCards);
   displayBestScores(theme, totalCards);
 });
+}}
 
+console.log(JSON.parse(localStorage.getItem('memory_scores_animaux_6')));
 
 // Option : relancer la partie avec la barre d'espace
 window.addEventListener('keydown', (event) => {
@@ -151,11 +161,11 @@ window.addEventListener('keydown', (event) => {
   }
 });
 
-
- //calcul score temps et nb coups
- function startTimer() {
+// Calcul du score, temps et nb de coups
+function startTimer() {
   startTime = new Date();
 }
+
 function stopTimer() {
   endTime = new Date();
   return Math.floor((endTime - startTime) / 1000); // durée en secondes
@@ -169,141 +179,89 @@ function calculerScore(nbCoups, nbPaires, tempsEnSecondes) {
   let scoreFinal = scoreMax - (penaliteCoups * 10) - penaliteTemps;
   return Math.max(scoreFinal, 0); // Ne jamais retourner un score négatif
 }
+window.displayBestScores = displayBestScores;
 
-//Fonction enregistrer les scores dans localStockage
-// score
-function saveScore(user, theme, pairs, score) {
-    const key = `memory_scores_${theme}_${pairs}`;
-    let scores = JSON.parse(localStorage.getItem(key)) || [];
-     // Ajouter le nouveau score global (mettre dans jouer)
-    scores.push({ user, score, currentTheme, date: new Date().toISOString() });
-  
-    // Trier par score décroissant
-    scores.sort((a,b) => b.score - a.score);
-  
-    // Garder seulement les 10 meilleurs
-    scores = scores.slice(0, 10);
-  
-    localStorage.setItem(key, JSON.stringify(scores));
-    
-    // Sauvegarder aussi les préférences utilisateur et dernière partie jouée
-    const userKey = `memory_user_${user}`;
-    let userData = JSON.parse(localStorage.getItem(userKey)) || { username: user, preferences: {}, lastGames: [] };
-    //données déjà stockées par user
-    userData.preferences = { theme, pairs };
-    
-    // Ajouter la partie à l'historique
-    userData.lastGames.unshift({
-      theme,
-      score,
-      date: new Date().toISOString()
-    });
-  
-    // Garder max 10 dernières parties
-    if (userData.lastGames.length > 10) {
-      userData.lastGames.pop();
-    }
-  
-    localStorage.setItem(userKey, JSON.stringify(userData));
-  }   
-  
+// Gestion du mot de passe
+import { evaluatePasswordStrength } from './modules/password.js';
 
-  // Afficher les meilleurs scores
-  function displayBestScores(theme, pairs) {
-    const bestScoresList = document.getElementById('bestScoresList');
-    const key = `memory_scores_${theme}_${pairs}`;
-    const scores = JSON.parse(localStorage.getItem(key)) || [];
+const passwordInput = document.getElementById('password');
+const confirmPasswordInput = document.getElementById('confirmPassword');
+const strengthDiv = document.getElementById('passwordStrength');
+const strengthFill = document.getElementById('passwordStrengthFill');
 
-    bestScoresList.innerHTML = '';
+// Mise à jour de la force du mot de passe
 
-    if (scores.length === 0) {
-      bestScoresList.innerHTML = 'Aucun score enregistré.';
-      return;
+if (passwordInput && strengthDiv && strengthFill) {
+  passwordInput.addEventListener('input', () => {
+    const strength = evaluatePasswordStrength(passwordInput.value);
+    strengthDiv.textContent = `Force du mot de passe : ${strength}`;
+
+    let width = 0;
+    let color = 'red';
+
+    if (strength === 'fort') {
+      width = 100;
+      color = 'green';
+    } else if (strength === 'moyen') {
+      width = 60;
+      color = 'orange';
+    } else {
+      width = 30;
+      color = 'red';
     }
 
-    scores.forEach((s, i) => {//créé li pour chaque score, définit rang, user, score, date
-      const li = document.createElement('li');
-      li.textContent = `${i+1}. ${s.user} - ${s.score} pts (${new Date(s.date).toLocaleDateString()})`;
-      bestScoresList.appendChild(li);//ajout element li à Bestscore
-    });
-  }
+    strengthFill.style.width = `${width}%`;
+    strengthFill.style.backgroundColor = color;
+  });
+}
 
-  // Gestion du formulaire
-  const form = document.getElementById('form');
-  if (form) {
+// Gestion du formulaire d'inscription affichage des erreurs
+const form = document.getElementById('registerForm');
+
+if (form) {
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const confirmPassword = document.getElementById("confirmPassword").value.trim();
+    const username = document.getElementById('username').value.trim();
     
-  
-  form.addEventListener('submit', e => {
-    e.preventDefault();})
+    const erreurDiv = document.getElementById('erreurMessages');
+    const erreurs = [];
 
-    // const email = document.getElementById("email").value.trim();
-    // const password = document.getElementById("password").value.trim();
-    // const confirmPassword = document.getElementById('confirmPassword').value.trim();
-    // username = document.getElementById('username').value.trim();
-    // currentTheme = document.getElementById('theme').value;
-    // const pairs = parseInt(document.getElementById('boardSize').value);
-
-    
-    // createBoard(currentTheme, pairs);
-    // displayBestScores(currentTheme, pairs);
-  };
-
-  //Affichage erreurs
-    let erreurs = [];
-    
-    if (!validateEmail(email)){
+    if (!validateEmail(email)) {
       erreurs.push("Email invalide.");
     }
+
     if (!validatePassword(password)) {
       erreurs.push("Le mot de passe doit contenir au moins 6 caractères, un chiffre et un caractère spécial.");
     }
+
     if (password !== confirmPassword) {
       erreurs.push("Les mots de passe ne correspondent pas.");
     }
-    if (!username) {
+
+    if (username.length < 3) {
       erreurs.push("Le nom d'utilisateur doit contenir au moins 3 caractères.");
     }
-    
-    
-    const erreurDiv = document.getElementById('erreurMessages');
+
     if (erreurs.length > 0) {
-      erreurDiv.innerHTML = erreurs.join("<br>");
+      erreurDiv.innerHTML = '';
+      erreurs.forEach(erreur => {
+        const p = document.createElement('p');
+        p.textContent = erreur;
+        erreurDiv.appendChild(p);
+      });
     } else {
       const user = { username, email, password };
-    localStorage.setItem('user', JSON.stringify(user));
-    alert("Inscription réussie !");
-    window.location.href = "Jouer.html";
-    
-  }
 
-
-  // // formulaire
-
-  // Création de l'objet utilisateur
-      const user = {
-        email: email,
-        password: password,
-      };
-
-      // Sauvegarde dans localStorage
-      localStorage.setItem('user', JSON.stringify(user));
+      saveToLocalStorage(user); // Sauvegarde dans le tableau d’utilisateurs
+      sessionStorage.setItem('user', JSON.stringify(user)); // Session en cours
 
       alert("Inscription réussie !");
-      reset();
-
-        const utilisateur = {
-    email: document.getElementById("email").value,
-    password: document.getElementById("password").value,  
-  };
-  
-  const json = JSON.stringify(utilisateur, null,2);
-  localStorage.setItem("utilisateur", json);
-  const resultatDiv = document.getElementById("json-resultat");
-     
-  export function saveToLocalStorage(userData) {
-    // Get [users] or []
-    const users = JSON.parse(localStorage.getItem('userData')) ?? []
-    users.push(userData)
-    // Update
-    localStorage.setItem('userData', JSON.stringify(users));
+      form.reset(); // Nettoie le formulaire
+      window.location.href = "seconnecter.html"; // redirige vers la connexion
+    }
+  });
 }

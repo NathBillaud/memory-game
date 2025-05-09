@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Inscription</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -24,16 +24,20 @@
         
         <h2>Inscrivez-vous</h2>
 
-     <form id="form">
+     <form id="registerForm">
         <div id="erreurMessages"></div>
-            <label>Nom d'utlisateur<br>
+            <label>Nom d'utilisateur<br>
                 <input type="text" placeholder="3 caractères minimum" required minlength="3" maxlength="64" id="username" /></label><br><br>
             <label>Entrez votre email: <br>
                 <input type="email" placeholder="votre email: exemple john@doe.fr" id="email" required /></label><br><br>
             <label>Mot de passe: <br>
-                <input type="password" placeholder="votre mot de passe" id="password" /></label><br><br>
+                <input type="password" placeholder="votre mot de passe" id="password" required /></label><br><br>
+                <div id="passwordStrengthBar" style="height: 5px; width: 100%; background-color: lightgray;">
+                    <div id="passwordStrengthFill" style="height: 100%; width: 0%; background-color: red;"></div>
+                  </div>
+                  <div id="passwordStrength"></div>
             <label>Confirmez le mot de passe: <br>
-                <input type="password" placeholder="Confirmez le mot de passe" id="confirmPassword" /></label><br><br>
+                <input type="password" placeholder="Confirmez le mot de passe" id="confirmPassword" required /></label><br><br>
                 
            
            

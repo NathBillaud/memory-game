@@ -6,9 +6,9 @@
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="page-jeu">
 
-h1>Jeu de Memory</h1>
+<h1>Jeu de Memory</h1>
 
 <nav class="menu">
     <ul>
@@ -21,23 +21,26 @@ h1>Jeu de Memory</h1>
     </ul>
 </nav>
 
-<form action=""></form>
     <section>
         <H2>Derniers meilleurs scores : </H2>
-      
-      
-            <div class="container">
-        <div classe="header"> Pseudo Score Taille Choix Memory Date</div>
-        <div classe="lastBestScore"></div>
-        <div classe="secondBestScore"></div>
-
-       </div>
-            
-
+      <table id="bestScoresTables">
+            <thead>
+                <tr>
+                    <th>Pseudo</th>
+                    <th>Score</th>
+                    <th>Taille</th>
+                    <th>Thème</th>
+                    <th>Date</th>  
+                </tr>
+            </thead>
+            <tbody id="bestScoresBody">
+            </tbody>
+      </table>
+           
         <H3>Tentez de gagner avec le moins d'essais possible. <br> 
             Appuyez sur la barre d'espace pour relancer le jeu. <br> 
             Nombre de coups : </H3>
-
+            <p id="currentScore">Score : 0</p>
                 <div id="gameBoard" class="game-board"></div>
                 <form id="form">
 

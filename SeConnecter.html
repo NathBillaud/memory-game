@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Connexion</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -21,18 +21,18 @@
     </ul>
 </nav>
 
-<form id="form">
+<form id="loginForm">
     <div id="erreurMessages"></div>
 
 <section>
 <div>
-    <label for=" email " >Entrez votre email:</label>
-    <input type="text" placeholder="votre email : exemple john@doe.fr"id="email" name="email" /><br><br>
+    <label for="email " >Entrez votre email:</label>
+    <input type="email" placeholder="votre email : exemple john@doe.fr"id="email" name="email" /><br><br>
 </div>
 
 <div>
     <label for="pass">Mot de Passe (6 caractères minimum): </label>
-    <input type="password" placeholder="Votre mot de passe" minlength="6" id="pass" name="password" minlength="6" required /><br><br>
+    <input type="password" placeholder="Votre mot de passe" minlength="6" id="pass" name="password" required /><br><br>
 </div>
 
 <input type="submit" value="Se connecter" />

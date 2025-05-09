@@ -3,35 +3,50 @@
     return re.test(password);
   }*/
 
-  export function validatePassword(password) {
-    if (password.length < 6) {
-      return false; 
-    }
-    //  doit comprendre 1 chiffre 1 symbole et 6 caractères mini   
-    let hasNumber = false;   
-    let hasChar = false;
-    let hasSpecial = false;
-  
-    for (let i = 0; i < password.length; i++) {
-      const char = password[i];
-  
-      // Vérifie si c'est un chiffre
-      if (char >= '0' && char <= '9') {
-        hasNumber = true;
-      }
-      // Vérifie si c'est une minuscule
-      else if (char >= 'a' && char <= 'z') {
-        hasChar = true;
-      }
-      // Vérifie si ce n'est ni une lettre ni un chiffre => caractère spécial
-      else if (
-        !(char >= '0' && char <= '9')
-      ) {
-        hasSpecial = true;
-      }
-    }
-  
-    // Le mot de passe est valide si toutes les conditions sont remplies
-
-    return hasNumber && hasChar && hasSpecial;
+ export function validatePassword(password) {
+  if (password.length < 6) {
+    return false;
   }
+
+  let hasNumber = false;
+  let hasLetter = false;
+  let hasSpecial = false;
+
+  for (let i = 0; i < password.length; i++) {
+    const char = password[i];
+
+    if (char >= '0' && char <= '9') {
+      hasNumber = true;
+    } else if (
+      (char >= 'a' && char <= 'z') ||
+      (char >= 'A' && char <= 'Z')
+    ) {
+      hasLetter = true;
+    } else {
+      // Si ce n'est ni une lettre ni un chiffre, c'est un caractère spécial
+      hasSpecial = true;
+    }
+  }
+
+  return hasNumber && hasLetter && hasSpecial;
+}
+
+    // Le mot de passe est valide si toutes les conditions sont remplies
+ 
+
+  export function evaluatePasswordStrength(password) {
+    let hasNumber = /\d/.test(password);
+    let hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    let length = password.length;
+  
+    if (length < 6) {
+      return 'faible';
+    } else if (length >= 6 && (hasNumber || hasSpecial)) {
+      return 'moyen';
+    } else if (length >= 9 && hasNumber && hasSpecial) {
+      return 'fort';
+    } else {
+      return 'faible';
+    }
+  }
+  
