@@ -1,50 +1,54 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <h1>Jeu de Memory</h1>
 
-<nav class="menu">
-    <ul>
+    <nav class="menu">
+        <ul>
 
-        <li><a href="index.html">Accueil</a></li>
-        <li><a href="Inscrire.html">S'inscrire</a></li>
-        <li><a href="SeConnecter.html">Se connecter</a></li>
-        <li><a href="Profil.html">Profil</a></li>
-        <li><a href="jouer.html">Jouer</a></li>
-    </ul>
-</nav>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="Inscrire.html">S'inscrire</a></li>
+            <li><a href="SeConnecter.html">Se connecter</a></li>
+            <li><a href="Profil.html">Profil</a></li>
+            <li><a href="jouer.html">Jouer</a></li>
+        </ul>
+    </nav>
 
-<form id="loginForm">
-    <div id="erreurMessages"></div>
+    <form id="loginForm">
+        <div id="erreurMessages"></div>
 
-<section>
-<div>
-    <label for="email " >Entrez votre email:</label>
-    <input type="email" placeholder="votre email : exemple john@doe.fr"id="email" name="email" /><br><br>
-</div>
+        <section>
+            <div>
+                <label for="email ">Entrez votre email:</label>
+                <input type="email" placeholder="votre email : exemple john@doe.fr" id="email" name="email" /><br><br>
+            </div>
 
-<div>
-    <label for="pass">Mot de Passe (6 caractères minimum): </label>
-    <input type="password" placeholder="Votre mot de passe" minlength="6" id="pass" name="password" required /><br><br>
-</div>
+            <div>
+                <label for="pass">Mot de Passe (6 caractères minimum): </label>
+                <input type="password" placeholder="Votre mot de passe" minlength="6" id="pass" name="password"
+                    required /><br><br>
+            </div>
 
-<input type="submit" value="Se connecter" />
-<input type="reset" value="Annuler">
+            <input type="submit" value="Se connecter" />
+            <input type="reset" value="Annuler">
 
-</section>
+        </section>
 
-</form>
+    </form>
 
 
 
 
     <script type="module" src="script.js"></script>
 </body>
+
 </html>

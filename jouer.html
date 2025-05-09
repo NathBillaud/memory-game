@@ -1,73 +1,76 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="page-jeu">
 
-<h1>Jeu de Memory</h1>
+    <h1>Jeu de Memory</h1>
 
-<nav class="menu">
-    <ul>
+    <nav class="menu">
+        <ul>
 
-        <li><a href="index.html">Accueil</a></li>
-        <li><a href="Inscrire.html">S'inscrire</a></li>
-        <li><a href="SeConnecter.html">Se connecter</a></li>
-        <li><a href="Profil.html">Profil</a></li>
-        <li><a href="jouer.html">Jouer</a></li>
-    </ul>
-</nav>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="Inscrire.html">S'inscrire</a></li>
+            <li><a href="SeConnecter.html">Se connecter</a></li>
+            <li><a href="Profil.html">Profil</a></li>
+            <li><a href="jouer.html">Jouer</a></li>
+        </ul>
+    </nav>
 
     <section>
         <H2>Derniers meilleurs scores : </H2>
-      <table id="bestScoresTables">
+        <table id="bestScoresTables">
             <thead>
                 <tr>
                     <th>Pseudo</th>
                     <th>Score</th>
                     <th>Taille</th>
                     <th>Thème</th>
-                    <th>Date</th>  
+                    <th>Date</th>
                 </tr>
             </thead>
             <tbody id="bestScoresBody">
             </tbody>
-      </table>
-           
-        <H3>Tentez de gagner avec le moins d'essais possible. <br> 
-            Appuyez sur la barre d'espace pour relancer le jeu. <br> 
-            Nombre de coups : </H3>
-            <p id="currentScore">Score : 0</p>
-                <div id="gameBoard" class="game-board"></div>
-                <form id="form">
+        </table>
 
-             <label for="theme">Choisissez un thème :</label>
-                 <select id="theme" required>
+        <H3>Tentez de gagner avec le moins d'essais possible. <br>
+            Appuyez sur la barre d'espace pour relancer le jeu. <br>
+            Nombre de coups : </H3>
+        <p id="currentScore">Score : 0</p>
+        <div id="gameBoard" class="game-board"></div>
+        <form id="form">
+
+            <label for="theme">Choisissez un thème :</label>
+            <select id="theme" required>
                 <option value="animaux">Animaux</option>
                 <option value="chiens">Chiens</option>
                 <option value="dinosaures">Dinosaures</option>
                 <option value="alphabet">Alphabet</option>
-             </select><br><br>
+            </select><br><br>
 
             <label for="boardSize">Nombre de cartes :</label>
-                <select id="boardSize" required>
+            <select id="boardSize" required>
                 <option value="12">12 (6 paires)</option>
                 <option value="16">16 (8 paires)</option>
                 <option value="20">20 (10 paires)</option>
             </select><br><br>
-            
+
             <button id="startGameBtn" type="button">Commencer la partie</button>
-    
-        </form> 
+
+        </form>
 
 
     </section>
     </form>
 
 
-<script type="module" src="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
+
 </html>
